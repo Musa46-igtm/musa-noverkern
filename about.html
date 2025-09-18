@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | NovaKern</title>
+
+  <!-- Set theme instantly -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg-color: #0c0c0c;
+      --text-color: #eeeeee;
+      --accent: #00ffff;
+      --card-color: #1a1a1a;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --accent: #00ffff;
+      --card-color: #f3f3f3;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--card-color);
+      padding: 1.5rem 2rem;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    header a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    header a:hover {
+      color: var(--accent);
+    }
+
+    section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-color);
+      margin-bottom: 2rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: var(--card-color);
+      border-top: 2px solid var(--accent);
+    }
+
+    .cta button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: var(--accent);
+      color: var(--bg-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0,255,255,0.3);
+    }
+
+    .cta button:hover {
+      background-color: #00cccc;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-size: 0.9rem;
+      border-top: 2px solid var(--accent);
+      background-color: var(--card-color);
+      margin-top: 3rem;
+      transition: all 0.4s ease;
+    }
+
+    footer:hover {
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <header data-aos="fade-down" data-aos-delay="200">
+    <h1>About Us</h1>
+    <a href="index.html">← Back to Home</a>
+  </header>
+
+  <section data-aos="fade-up" data-aos-delay="400">
+    <h2>Who We Are</h2>
+    <p>NovaKern is more than just a tech brand — it’s a vision for a connected future.
+    Born from the idea that technology should make life more human, we create digital ecosystems that empower, organize, and inspire.</p>
+
+    <h2>Our Mission</h2>
+    <p>To build intelligent, seamless experiences that help you feel connected, productive, and in control.
+    From communication to smart organization, NovaKern is your digital core.</p>
+
+    <h2>Our Future</h2>
+    <p>We’re crafting not just apps, but worlds.
+    As we push into AI, virtual environments, and smarter life tools, our promise remains:
+    tech that adapts to you, not the other way around.</p>
+  </section>
+
+  <section class="cta" data-aos="fade-up" data-aos-delay="700">
+    <h2>Ready to Experience Nova?</h2>
+    <p>Join our waitlist and be among the first to shape the future with us.</p>
+    <button onclick="location.href='download.html'">Download Nova App</button>
+  </section>
+
+     <footer>
+    &copy; Created By Musa.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

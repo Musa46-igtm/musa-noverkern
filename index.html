@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaKern | Core of the Next Frontier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --accent: #0077ff;
+      --card-color: #f5f5f5;
+    }
+    [data-theme="dark"] {
+      --bg-color: #0c0c0c;
+      --text-color: #eeeeee;
+      --accent: #00ffff;
+      --card-color: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      font-family: 'Orbitron', sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    body.loaded { opacity: 1; }
+
+    nav {
+      background: var(--card-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .menu-icon {
+      font-size: 1.5rem;
+      color: var(--accent);
+      cursor: pointer;
+      display: none;
+    }
+
+    .top-controls select {
+      padding: 0.5rem;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    nav h1 { font-size: 1.5rem; color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: bold;
+    }
+    nav ul li a:hover { color: var(--accent); }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: glow 2s infinite alternate;
+      background: linear-gradient(135deg, var(--card-color) 0%, var(--bg-color) 100%);
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px var(--accent); }
+      to   { text-shadow: 0 0 20px var(--accent), 0 0 30px #ff0077; }
+    }
+
+    header h1 { font-size: 3rem; color: var(--accent); margin-bottom: 1rem; }
+    header p { font-size: 1.2rem; max-width: 800px; margin: 0 auto; }
+
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .section h2 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .brands {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .brand-box {
+      background: var(--card-color);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #333;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .brand-box:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    .brand-title { font-size: 1.5rem; margin: 1rem 0; color: var(--accent); }
+    .brand-desc { color: var(--text-color); }
+
+    a.brand-box {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--card-color);
+      border-top: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .cta button {
+      margin-top: 1rem;
+      padding: 0.75rem 1.58rem;
+      font-size: 1rem;
+      border: none;
+      background: var(--accent);
+      color: var(--bg-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .cta button:hover {
+      background: #00cccc;
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      border-top: 2px solid var(--accent);
+      background-color: var(--card-color);
+      margin-top: 3rem;
+      transition: all 0.4s ease;
+    }
+
+    @media (max-width: 600px) {
+      .menu-icon { display: flex; }
+      nav ul { display: none; }
+      header h1 { font-size: 2rem; }
+      .section { padding: 2rem 1rem; }
+    }
+
+    /* Sidenav Styles */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0; 
+      left: 0;
+      background: var(--card-color);
+      overflow-x: hidden;
+      transition: 0.2s;
+      padding-top: 4rem;
+      border-right: 2px solid var(--accent);
+      z-index: 999;
+    }
+
+    /* Menu links */
+    .sidenav a {
+      padding: 1.5rem 2rem;
+      text-decoration: none;
+      font-size: 1rem;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      transition: 0.3s;
+    }
+    .sidenav a:hover { color: var(--accent); }
+
+
+    /* Contact form */
+    .contact-form {
+      max-width: 400px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      background: var(--card-color);
+      color: var(--text-color);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .contact-form h2 { text-align: center; color: var(--accent); }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      border: 1px solid var(--accent);
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .contact-form button {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: none;
+      width: 250px;
+      max-width: 90%;
+      margin-bottom: 1rem;
+      background: var(--accent);
+      color: var(--bg-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #00cccc;
+      box-shadow: 0 0 15px var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="menu-icon" onclick="openSidenav()">☰</div>
+    <h1>NovaKern</h1>
+    <div class="top-controls">
+      <select id="theme-select">
+        <option value="light">☀️ Light</option>
+        <option value="dark">🌙 Dark</option>
+      </select>
+    </div>
+  </nav>
+
+  <div id="sidenav" class="sidenav">
+    <a href="settings.html">Settings</a>
+    <a href="about.html">About</a>
+    <a href="help.html">Help?</a>
+    <a href="download.html">Download</a>
+    <a href="credits.html">Credits</a>
+    <a href="login.html" id="sideLoginLink">Login</a>
+  </div>
+
+  <header data-aos="zoom-in">
+    <h1>NovaKern</h1>
+    <p>Core of the Next Frontier</p>
+  </header>
+
+  <main>
+    <section class="section" data-aos="fade-up" id="brands">
+      <h2>Welcome to the NovaVerse</h2>
+      <p style="text-align:center;">
+        NovaKern is more than a headquarters—it's a launchpad for the future. From flying cars to emotionally intelligent AI, our universe of brands is creating tomorrow today.
+      </p>
+      <div class="brands">
+        <a href="nova.html" class="brand-box" data-aos="flip-left">
+          <div class="brand-title">Nova Apps</div>
+          <p class="brand-desc">Feel Connected. Stay Human.</p>
+        </a>
+        <a href="nova-studios.html" class="brand-box" data-aos="flip-right">
+          <div class="brand-title">Nova Studios</div>
+          <p class="brand-desc">Worlds Worth Playing.</p>
+        </a>
+        <a href="nova-motora.html" class="brand-box" data-aos="flip-left">
+          <div class="brand-title">Nova Motora</div>
+          <p class="brand-desc">Drive the Future.</p>
+        </a>
+        <a href="nova-bot.html" class="brand-box" data-aos="flip-right">
+          <div class="brand-title">Nova Bot</div>
+          <p class="brand-desc">Every Kid Deserves a Bot.</p>
+        </a>
+        <a href="nova-ai.html" class="brand-box" data-aos="zoom-in-up">
+          <div class="brand-title">Nova AI</div>
+          <p class="brand-desc">The Brain of Everything.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="cta" data-aos="fade-up">
+      <div class="form-container">
+        <h1>Want to give us an idea?</h1>
+        <p>Be the first to try your nova ideas before it launches.</p>
+        <form class="contact-form" action="https://usebasin.com/f/93e7ec7cf7dd" method="POST" data-aos="zoom-in" data-aos-delay="600">
+          <h2>Contact Us</h2>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="message">Idea:</label>
+          <textarea id="message" name="message" required></textarea>
+          
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    &copy; 2025 NovaKern. All Rights Reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+    window.addEventListener('load', () => document.body.classList.add('loaded'));
+
+    function openSidenav() { document.getElementById("sidenav").style.width = "250px"; }
+    function closeSidenav() { document.getElementById("sidenav").style.width = "0"; }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginLink = document.getElementById('loginLink');
+      const sideLoginLink = document.getElementById('sideLoginLink');
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      const username = localStorage.getItem('username');
+
+      if (isLoggedIn && username) {
+        loginLink.textContent = `Logout (${username})`; loginLink.href = "#";
+        sideLoginLink.textContent = `Logout (${username})`; sideLoginLink.href = "#";
+
+        const logoutHandler = (e) => {
+          e.preventDefault();
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          document.body.classList.add('fade-out');
+          setTimeout(() => window.location.href = 'login.html', 500);
+        };
+
+        loginLink.addEventListener('click', logoutHandler);
+        sideLoginLink.addEventListener('click', logoutHandler);
+      }
+
+      const themeSelect = document.getElementById("theme-select");
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      themeSelect.value = savedTheme;
+      applyTheme(savedTheme);
+      themeSelect.addEventListener("change", (e) => applyTheme(e.target.value));
+    });
+  </script>
+  <script>function openSidenav() {
+  document.getElementById("sidenav").style.width = "250px";
+  document.addEventListener("click", closeOnOutsideClick);
+}
+
+function closeSidenav() {
+  document.getElementById("sidenav").style.width = "0";
+  document.removeEventListener("click", closeOnOutsideClick);
+}
+
+function closeOnOutsideClick(e) {
+  const sidenav = document.getElementById("sidenav");
+  const menuIcon = document.querySelector(".menu-icon");
+  // If click is not on sidenav or menu icon, close it
+  if (!sidenav.contains(e.target) && !menuIcon.contains(e.target)) {
+    closeSidenav();
+  }
+}</script>
+</body>
+</html>

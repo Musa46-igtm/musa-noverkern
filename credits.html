@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Credits | NovaKern</title>
+  
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <style>
+        :root {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --accent: #0077ff;
+        }
+  
+  [data-theme="dark"] {
+      --bg-color: #0c0c0c;
+      --text-color: #eeeeee;
+      --accent: #00ffff;
+      --card-color: #1a1a1a;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 2rem;
+      background: var(--card-color);
+      border-bottom: 2px solid var(--accent);
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    section {
+      flex: 1;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      text-align: center;
+      background: var(--bg-color);
+    }
+
+    section h2 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    section p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .highlight {
+      color: #ff0077;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--bg-color);
+      border-top: 2px solid var(--accent);
+    }
+
+    .contact-form {
+      max-width: 400px;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      background: var(--bg-color);
+      color: var(--text-color);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .contact-form h2 {
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 0.5rem;
+      border: 1px solid var(--accent);
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .contact-form button {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border: none;
+      width: 250px;
+      max-width: 90%;
+      margin-top: 1rem;
+      background: var(--accent);
+      color: var(--bg-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #00cccc;
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--card-color);
+      border-top: 2px solid var(--accent);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.5rem; }
+      section h2 { font-size: 1.5rem; }
+      section p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header data-aos="fade-down">
+    <h1>NovaKern Credits</h1>
+  </header>
+
+    <section data-aos="fade-up" data-aos-delay="100"> 
+    <img data-aos="fade-up" data-aos-delay="100" src="./assets/images/hero.png" alt="Musa" style="width: 150px; border-radius: 50%; display: flex; margin: 0 auto 5rem;">
+ 
+    <h2>Meet the Mastermind</h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Crafted with caffeine, late-night epiphanies, and borderline obsession by 
+      <span class="highlight">Musa</span> a developer, designer, and storyteller driven by the dream of building worlds that breathe.
+    </p>
+    <p data-aos="fade-up" data-aos-delay="300">
+      This project is more than just code it's a vision of future tech colliding with raw creativity. NovaKern is Musa's playground for experimenting with AI, gaming ecosystems, and sleek web systems that (hopefully) don't crash every 5 minutes.
+    </p>
+
+    <h2 data-aos="fade-up" data-aos-delay="400">Special Thanks</h2>
+    <p data-aos="fade-up" data-aos-delay="500">
+      To the countless open-source devs, random YouTubers, and midnight Discord chats that made this possible. 
+      And to the next big idea that's probably downloading in Musa's brain right now...
+    </p>
+
+    <p style="margin-top:2rem;" data-aos="fade-up" data-aos-delay="600">
+      <a href="index.html" style="color: var(--accent); text-decoration: none;">← Back to Home</a>
+    </p>
+  </section>
+
+  <section class="cta" data-aos="zoom-in" data-aos-delay="700">
+    <h2>Contact the Developer</h2>
+    <form class="contact-form" action="https://usebasin.com/f/93e7ec7cf7dd" method="POST" enctype="multipart/form-data" data-aos="fade-up" data-aos-delay="800">
+      <label>Name:</label>
+      <input type="text" name="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+      <label>Message:</label>
+      <textarea name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 NovaKern. Hand-forged by Musa. All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+   </script>
+
+</body>
+</html>

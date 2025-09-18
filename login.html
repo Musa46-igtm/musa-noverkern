@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaKern Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to right, #0c0c0c, #111);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffff60;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 1s ease forwards;
+      position: relative;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #00ffff;
+    }
+
+    .input-group { margin-bottom: 1rem; }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: #ccc;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background: #0f0f0f;
+      color: #fff;
+      outline: none;
+    }
+
+    .toggle-password {
+      text-align: right;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: #00ffff;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #00ffff;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover { background-color: #00cccc; }
+
+    .link {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .link a {
+      color: #ff0077;
+      text-decoration: none;
+    }
+
+    #g_id_onload, .g_id_signin {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+      height: 1rem;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Welcome Back to NovaKern</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Username" required />
+        <div id="usernameError" class="error-message"></div>
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="Email" required />
+        <div id="emailError" class="error-message"></div>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Password" required />
+        <div id="passwordError" class="error-message"></div>
+        <div class="toggle-password" onclick="togglePassword()">👁️ Show Password</div>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <div style="text-align:center; margin-top:1rem;">
+      <div id="g_id_onload"
+           data-client_id="574274066662-bh0jsrntu8ri4tbifonvs03ujnc7kv42.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false"></div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="filled_black"
+           data-text="continue_with"
+           data-size="large"
+           data-logo_alignment="left"></div>
+    </div>
+
+    <div class="link">
+      Don’t have an account? <a href="sign-up.html">Sign up</a>
+    </div>
+  </div>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+  function togglePassword() {
+    const input = document.getElementById('password');
+    const toggle = document.querySelector('.toggle-password');
+    if (input.type === "password") {
+      input.type = "text";
+      toggle.textContent = "🙈 Hide Password";
+    } else {
+      input.type = "password";
+      toggle.textContent = "👁️ Show Password";
+    }
+  }
+
+  // Local storage form login
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    ['usernameError', 'emailError', 'passwordError'].forEach(id => {
+      const el = document.getElementById(id);
+      el.textContent = '';
+      el.style.display = 'none';
+    });
+
+    let hasError = false;
+    if (!username) { showError('usernameError', 'Username is required.'); hasError = true; }
+    if (!email)    { showError('emailError', 'Email is required.'); hasError = true; }
+    if (!password) { showError('passwordError', 'Password is required.'); hasError = true; }
+    if (hasError) return;
+
+    const storedData = localStorage.getItem(`user_${username}`);
+    if (!storedData) { showError('usernameError', 'Username not found. Please sign up.'); return; }
+
+    const userData = JSON.parse(storedData);
+    if (userData.email !== email) { showError('emailError', 'Email does not match.'); return; }
+    if (userData.password !== password) { showError('passwordError', 'Incorrect password.'); return; }
+
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('username', username);
+    window.location.href = 'index.html';
+  });
+
+  function showError(id, message) {
+    const el = document.getElementById(id);
+    el.textContent = message;
+    el.style.display = 'block';
+  }
+
+  // Google login callback
+  function handleCredentialResponse(response) {
+    const data = parseJwt(response.credential);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('username', data.name || data.email);
+    window.location.href = 'index.html';
+  }
+
+  function parseJwt (token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(c => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
+</script>
+</body>
+</html>

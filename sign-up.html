@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | NovaKern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .signup-container {
+      background: #111;
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px #00ffff40;
+      width: 90%;
+      max-width: 400px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #00ffff;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #1f1f1f;
+      color: white;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover { background: #00cccc; }
+    .link {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .link a { color: #ff0077; text-decoration: none; }
+    #signupMessage {
+      margin-top: 0.8rem;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    #signupMessage.success { color: #00ffcc; }
+    #signupMessage.error { color: #ff4444; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Create Nova Account</h2>
+    <form id="signupForm">
+      <input type="text" id="username" name="username" placeholder="Username" required />
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="password" id="password" name="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+      <div id="signupMessage"></div>
+    </form>
+
+    <div class="link">
+      Already have an account? <a href="login.html">Login</a>
+    </div>
+
+    <div style="text-align:center; margin-top:1.5rem;">
+      <div id="g_id_onload"
+           data-client_id="574274066662-bh0jsrntu8ri4tbifonvs03ujnc7kv42.apps.googleusercontent.com"
+           data-context="signup"
+           data-ux_mode="popup"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false"></div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="filled_black"
+           data-text="continue_with"
+           data-size="large"
+           data-logo_alignment="left"></div>
+    </div>
+  </div>
+
+  <script>
+    // Normal local signup
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const messageEl = document.getElementById('signupMessage');
+
+      messageEl.textContent = '';
+      messageEl.className = '';
+
+      if (localStorage.getItem(`user_${username}`)) {
+        messageEl.textContent = '⚠️ Username already taken. Please choose another.';
+        messageEl.classList.add('error');
+        return;
+      }
+
+      const userData = { email, password, username };
+      localStorage.setItem(`user_${username}`, JSON.stringify(userData));
+
+      messageEl.textContent = '✅ Signup successful! Redirecting to login...';
+      messageEl.classList.add('success');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 2000);
+    });
+
+    // Google Sign Up
+    function handleCredentialResponse(response) {
+      const jwt = response.credential;
+      // Decode payload
+      const payload = JSON.parse(atob(jwt.split('.')[1]));
+      const googleUsername = payload.name || "GoogleUser";
+      const googleEmail = payload.email;
+      const googleSub = payload.sub;
+
+      // Store under a special key
+      localStorage.setItem(`user_GoogleUser_${googleSub}`, JSON.stringify({
+        email: googleEmail,
+        username: googleUsername,
+        googleId: googleSub
+      }));
+
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('username', googleUsername);
+
+      // Redirect
+      window.location.href = 'novakern.html';
+    }
+  </script>
+</body>
+</html>

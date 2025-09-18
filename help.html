@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help | NovaKern</title>
+
+  <!-- Set theme instantly -->
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg-color: #0c0c0c;
+      --text-color: #eeeeee;
+      --accent: #00ffff;
+      --card-color: #1a1a1a;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --accent: #00ffff;
+      --card-color: #f3f3f3;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--card-color);
+      padding: 1.5rem 2rem;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+
+    header a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    header a:hover {
+      color: var(--accent);
+    }
+
+    section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .faq {
+      background: var(--card-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .faq h3 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: var(--card-color);
+      border-top: 2px solid var(--accent);
+    }
+
+    form {
+      max-width: 400px;
+      margin: 2rem auto;
+      background: #222;
+      padding: 2rem;
+      border-radius: 1rem;
+      color: #fff;
+    }
+
+    form label {
+      display: block;
+      text-align: left;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 0.5rem;
+    }
+
+    form button {
+      display: block;
+      padding: 0.75rem 2rem;
+      margin: 1rem auto 0;
+      background: #00bfff;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    form button:hover {
+      background: #00cccc;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-size: 0.9rem;
+      border-top: 2px solid var(--accent);
+      background-color: var(--card-color);
+      margin-top: 3rem;
+      transition: all 0.4s ease;
+    }
+
+    footer:hover {
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+    }
+    .contact-form {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: var(--card-color);
+  color: var(--text-color);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transition: background 0.4s, color 0.4s;
+}
+
+.contact-form h2 {
+  text-align: center;
+  color: var(--accent);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--accent);
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+.contact-form button {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: none;
+  width: 250px;
+  max-width: 90%;
+  margin-bottom: 1rem;
+  background: var(--accent);
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #00cccc;
+  box-shadow: 0 0 15px var(--accent);
+}
+  </style>
+</head>
+<body>
+  <header data-aos="fade-down" data-aos-delay="200">
+    <h1>Need Help?</h1>
+    <a href="index.html"> Back to Home</a>
+  </header>
+
+  <section data-aos="fade-up" data-aos-delay="400">
+    <h2>How can we help?</h2>
+
+    <div class="faq" data-aos="fade-up" data-aos-delay="600">
+      <h3>How do I install the Nova app?</h3>
+      <p>Head over to the Download page, choose your platform, and follow the simple steps. It’s designed to be smooth — Nova’s got your back.</p>
+    </div>
+
+    <div class="faq" data-aos="fade-up" data-aos-delay="800">
+      <h3>Is Nova free?</h3>
+      <p>Nova’s core experience is totally free. Some advanced features might come with a premium plan, but staying connected doesn’t cost a thing.</p>
+    </div>
+
+    <div class="faq" data-aos="fade-up" data-aos-delay="1000">
+      <h3>Where do I change my settings?</h3>
+      <p>Easy. Just navigate to Settings from the main menu. There you can update your theme, language, account details, and more.</p>
+    </div>
+
+    <div class="faq" data-aos="fade-up" data-aos-delay="1200">
+      <h3>How do I contact support?</h3>
+      <p>You can reach out directly through our contact form on the website, or email support@novakern.com.  
+      We usually reply within 24 hours.</p>
+    </div>
+  </section>
+
+  <section class="cta" data-aos="fade-up" data-aos-delay="1400">
+    <h2>Need more help?</h2>
+    <p>We’re always here. Click below to get direct support from the NovaKern team.</p>
+<form class="contact-form">
+              <data-aos="zoom-in" data-aos-delay="600">
+        <h2 style="text-align:center;">
+    <form 
+      action="https://usebasin.com/f/93e7ec7cf7dd" 
+      method="POST" 
+      enctype="multipart/form-data" 
+      data-aos="fade-up" 
+      data-aos-delay="1600"
+    >
+      <h2>Contact Us</h2>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+ <footer>
+    &copy; 2025 NovaKern. All Rights Reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
